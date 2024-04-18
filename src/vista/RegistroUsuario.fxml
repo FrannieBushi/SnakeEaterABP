@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.RegistroUsuarioController">
+   <children>
+      <ImageView fitHeight="700.0" fitWidth="1000.0" pickOnBounds="true">
+         <image>
+            <Image url="@../imagenes/metal-gear-solid-contrast.jpg" />
+         </image>
+      </ImageView>
+      <Label id="titulo" layoutX="58.0" layoutY="57.0" stylesheets="@cssOptions.css" text="Snake Eater" textFill="#f5f5f5">
+         <font>
+            <Font name="Impact" size="48.0" />
+         </font>
+      </Label>
+      <Label layoutX="204.0" layoutY="127.0" text="Usuario:" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium" size="24.0" />
+         </font>
+      </Label>
+      <TextField id="UsrIntroducido" fx:id="UsrIntroducido" layoutX="172.0" layoutY="155.0" />
+      <Label layoutX="184.0" layoutY="193.0" text="Contraseña:" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnConfirmarReg" layoutX="332.0" layoutY="289.0" mnemonicParsing="false" onAction="#registrarUsuario" text="Confirmar" />
+      <PasswordField fx:id="PswIntroducido" layoutX="172.0" layoutY="289.0" />
+      <Label layoutX="152.0" layoutY="254.0" text="Repetir contraseña:" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium" size="24.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="PswIntroducidoDos" layoutX="172.0" layoutY="221.0" />
+      <Button fx:id="BtnInicioSesion" layoutX="173.0" layoutY="394.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="25.0" prefWidth="149.0" text="Inicio Sesión" />
+      <Label layoutX="136.0" layoutY="366.0" text="¿Ya estás registrado?" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Alerta" layoutX="172.0" layoutY="323.0" prefHeight="27.0" prefWidth="233.0" text="asdsadasdasdasdasdasdas" textFill="RED" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

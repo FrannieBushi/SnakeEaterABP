@@ -1,0 +1,14 @@
+@font-face{
+    src:url("METAG___.TTF");
+}
+#contorno {
+    -fx-text-fill: #f5f5f5; /* Color del texto */
+    -fx-effect: dropshadow(gaussian, black, 2, 2, 2, 2); /* Contorno negro */
+}
+
+#titulo {
+    -fx-font-family:'Metal Gear';
+    -fx-text-fill: #f5f5f5; /* Color del texto */
+    -fx-effect: dropshadow(gaussian, black, 2, 2, 2, 2); /* Contorno negro */
+}
+

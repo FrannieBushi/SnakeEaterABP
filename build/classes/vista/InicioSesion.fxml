@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.InicioSesionController">
+   <children>
+      <ImageView fitHeight="700.0" fitWidth="1000.0" pickOnBounds="true">
+         <image>
+            <Image url="@../imagenes/metal-gear-solid-contrast.jpg" />
+         </image>
+      </ImageView>
+      <Label id="titulo" layoutX="58.0" layoutY="57.0" stylesheets="@cssOptions.css" text="Snake Eater" textFill="#f5f5f5">
+         <font>
+            <Font name="Impact" size="48.0" />
+         </font>
+      </Label>
+      <Label id="contorno" layoutX="204.0" layoutY="127.0" stylesheets="@cssOptions.css" text="Usuario:" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium" size="24.0" />
+         </font>
+      </Label>
+      <TextField id="UsrIntoducido" fx:id="UsrIntroducido" layoutX="172.0" layoutY="155.0" onKeyTyped="#bloquearEspacios" />
+      <Label id="contorno" layoutX="184.0" layoutY="193.0" stylesheets="@cssOptions.css" text="Contraseña:" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium" size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="332.0" layoutY="221.0" mnemonicParsing="false" onAction="#iniciarSesion" text="Confirmar" />
+      <Label id="Alerta" fx:id="alerta" layoutX="171.0" layoutY="259.0" prefHeight="27.0" prefWidth="323.0" text="asdsadasdasdasdasdasdas" textFill="RED" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label id="contorno" layoutX="131.0" layoutY="286.0" stylesheets="@cssOptions.css" text="¿Todavía no te has registrado?" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium" size="24.0" />
+         </font>
+      </Label>
+      <Button id="BotonRegistro" layoutX="172.0" layoutY="314.0" mnemonicParsing="false" onAction="#registrarUsuario" prefHeight="25.0" prefWidth="149.0" text="Registrarse" />
+      <PasswordField fx:id="PswIntroducido" layoutX="172.0" layoutY="221.0" onKeyTyped="#bloquearEspacios" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Mute" />
+   </children>
+</AnchorPane>
