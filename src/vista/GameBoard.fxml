@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="controlador.GameBoardController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.GameBoardController">
    <children>
       <ImageView fitHeight="700.0" fitWidth="1000.0" pickOnBounds="true">
          <image>
@@ -20,7 +19,7 @@
             <Image url="@../imagenes/Metal-Gear-1987.jpg" />
          </image>
       </ImageView>
-      <GridPane gridLinesVisible="true" layoutX="27.0" layoutY="89.0" prefHeight="584.0" prefWidth="948.0">
+      <GridPane fx:id="gameBoard" layoutX="27.0" layoutY="89.0" prefHeight="584.0" prefWidth="948.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
