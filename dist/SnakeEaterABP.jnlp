@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="SnakeEaterABP.jar" size="20598814" download="eager" />
+    <jar href="SnakeEaterABP.jar" size="20597247" download="eager" />
     <jar href="lib\api.jar" size="8341" download="eager" />
     <jar href="lib\postgresql-42.5.0.jar" size="1046274" download="eager" />
   </resources>
