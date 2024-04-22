@@ -21,7 +21,7 @@ public class GameBoardController {
 
     private Rectangle[][] boardCells; // Matriz para almacenar las celdas del tablero
 
-    private int snakeLength = 3; // Longitud inicial de la serpiente
+    private int snakeLength = 1; // Longitud inicial de la serpiente
     private int snakeX = 5; // Posición X de la cabeza de la serpiente
     private int snakeY = 5; // Posición Y de la cabeza de la serpiente
     
@@ -43,7 +43,7 @@ public class GameBoardController {
     initFruit();
 
     // Configurar el bucle de juego para actualizar la posición de la serpiente periódicamente
-    gameLoop = new Timeline(new KeyFrame(Duration.millis(300), e -> moveSnake()));
+    gameLoop = new Timeline(new KeyFrame(Duration.millis(275), e -> moveSnake()));
     gameLoop.setCycleCount(Timeline.INDEFINITE);
     gameLoop.play();
 
