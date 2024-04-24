@@ -45,6 +45,50 @@ public class MenuInicioController implements Initializable {
             e.printStackTrace(); // Manejo básico de excepciones, puedes cambiarlo según tu necesidad
         }
     }
+     
+     @FXML
+     private void unJugador(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/GameBoard.fxml"));
+            Parent root = loader.load();
+
+            // Crear una nueva escena
+            Scene nuevaEscena = new Scene(root);
+
+            // Obtener la ventana actual (escenario)
+            Stage ventana = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Establecer la nueva escena en la ventana
+            ventana.setScene(nuevaEscena);
+
+            // Mostrar la nueva escena
+            ventana.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Manejo básico de excepciones, puedes cambiarlo según tu necesidad
+        }
+    }
+     
+      @FXML
+     private void registroPartidas(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/RegistroPartidas.fxml"));
+            Parent root = loader.load();
+
+            // Crear una nueva escena
+            Scene nuevaEscena = new Scene(root);
+
+            // Obtener la ventana actual (escenario)
+            Stage ventana = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Establecer la nueva escena en la ventana
+            ventana.setScene(nuevaEscena);
+
+            // Mostrar la nueva escena
+            ventana.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Manejo básico de excepciones, puedes cambiarlo según tu necesidad
+        }
+    }
     
     /**
      * Initializes the controller class.

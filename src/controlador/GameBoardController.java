@@ -10,11 +10,13 @@ import javafx.util.Duration;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.control.Label;
 
 public class GameBoardController {
 
     @FXML
     private GridPane gameBoard;
+    private Label   GameOver;
 
     private final int BOARDWIDTH = 20; // Ancho del tablero en celdas
     private final int BOARDHEIGHT = 15; // Altura del tablero en celdas
@@ -188,6 +190,7 @@ public class GameBoardController {
         // Detener el bucle de juego
         gameLoop.stop();
         System.out.println("Game Over");
+        //GameOver.setVisible(true);
     }
 
     // Métodos para controlar el movimiento de la serpiente

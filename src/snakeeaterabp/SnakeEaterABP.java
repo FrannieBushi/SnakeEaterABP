@@ -40,7 +40,7 @@ public class SnakeEaterABP extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/vista/GameBoard.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/vista/MenuInicio.fxml"));
         
         Scene scene = new Scene(root);
         

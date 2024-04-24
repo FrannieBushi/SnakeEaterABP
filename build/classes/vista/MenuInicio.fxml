@@ -19,9 +19,9 @@
             <Font name="Impact" size="48.0" />
          </font>
       </Label>
-      <Button layoutX="498.0" layoutY="135.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="488.0" text="Un jugador" />
+      <Button fx:id="btnUnJugador" layoutX="498.0" layoutY="135.0" mnemonicParsing="false" onAction="#unJugador" prefHeight="80.0" prefWidth="488.0" text="Un jugador" />
       <Button layoutX="498.0" layoutY="222.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="488.0" text="Dos jugadores" />
-      <Button layoutX="498.0" layoutY="310.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="488.0" text="Registro de partidas" />
+      <Button fx:id="btnRegistroPartidas" layoutX="498.0" layoutY="310.0" mnemonicParsing="false" onAction="#registroPartidas" prefHeight="80.0" prefWidth="488.0" text="Registro de partidas" />
       <Button id="cerrarSesion" layoutX="498.0" layoutY="397.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="80.0" prefWidth="488.0" text="Cerrar sesión" />
    </children>
 </AnchorPane>
