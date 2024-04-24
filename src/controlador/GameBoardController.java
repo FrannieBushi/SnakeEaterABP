@@ -102,7 +102,7 @@ public class GameBoardController {
         lastDirection = direction;
         
         // Vincular las teclas de flecha a los métodos de cambio de dirección
-    gameBoard.setOnKeyPressed(e -> {
+        gameBoard.setOnKeyPressed(e -> {
         //System.out.println("Tecla presionada: " + e.getCode());
         switch (e.getCode()) {
             case UP:
