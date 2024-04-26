@@ -17,6 +17,17 @@ public class GameBoardController {
     @FXML
     private GridPane gameBoard;
     private Label   GameOver;
+    
+    @FXML
+    private Label TimePlayed;
+    
+    @FXML
+    private Label scoreLabel;
+    
+    private Timeline timeline;
+    private int seconds = 0;
+    
+    private int playerPoints = 0;
 
     private final int BOARDWIDTH = 20; // Ancho del tablero en celdas
     private final int BOARDHEIGHT = 15; // Altura del tablero en celdas
@@ -31,42 +42,45 @@ public class GameBoardController {
     private int fruitY;
     private boolean hasEatenFruit;
 
-    private KeyCode direction = KeyCode.RIGHT; // Dirección inicial de movimiento de la serpiente
-    private KeyCode lastDirection = KeyCode.RIGHT; // Dirección anterior de la serpiente
+    private KeyCode direction = KeyCode.D; // Dirección inicial de movimiento de la serpiente
+    private KeyCode lastDirection = KeyCode.D; // Dirección anterior de la serpiente
 
     private Timeline gameLoop; // Bucle de juego
     
     private List<Point> snakeBody = new ArrayList<>();
-
+    
+    public void startTimer() {
+        timeline.play();
+    }
+     
+    private void updateTimerLabel() {
+        int minutes = seconds / 60;
+        int remainingSeconds = seconds % 60;
+        TimePlayed.setText(String.format("%02d:%02d", minutes, remainingSeconds));
+    }
+    
+    private void updatePoints(int playerPoints) {
+        scoreLabel.setText("Puntuación: "+playerPoints);
+    }
+    
     public void initialize() {
     // Inicializar el tablero y la serpiente
-    initBoard();
-    initSnake();
-    initFruit();
+        initBoard();
+        initSnake();
+        initFruit();
+    
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            seconds++;
+            updateTimerLabel();
+        }));
+        
+        timeline.setCycleCount(Timeline.INDEFINITE); // Hacer que el temporizador se ejecute indefinidamente
+        startTimer(); // Iniciar el temporizador automáticamente al inicializar el controlador
 
     // Configurar el bucle de juego para actualizar la posición de la serpiente periódicamente
     gameLoop = new Timeline(new KeyFrame(Duration.millis(275), e -> moveSnake()));
     gameLoop.setCycleCount(Timeline.INDEFINITE);
     gameLoop.play();
-
-    // Vincular las teclas de flecha a los métodos de cambio de dirección
-    gameBoard.setOnKeyPressed(e -> {
-        //System.out.println("Tecla presionada: " + e.getCode());
-        switch (e.getCode()) {
-            case UP:
-                moveUp();
-                break;
-            case DOWN:
-                moveDown();
-                break;
-            case LEFT:
-                moveLeft();
-                break;
-            case RIGHT:
-                moveRight();
-                break;
-        }
-    });
 
     // Asegurar que el foco esté en el GridPane para que pueda detectar las teclas presionadas
     gameBoard.requestFocus();
@@ -84,7 +98,7 @@ public class GameBoardController {
             }
         }
         for (Point point : snakeBody) {
-            boardCells[point.y][point.x].setFill(javafx.scene.paint.Color.GREEN); // Dibujar el cuerpo de la serpiente
+            //boardCells[point.y][point.x].setFill(javafx.scene.paint.Color.GREEN); // Dibujar el cuerpo de la serpiente
         }
     }
 
@@ -102,43 +116,43 @@ public class GameBoardController {
         lastDirection = direction;
         
         // Vincular las teclas de flecha a los métodos de cambio de dirección
-    gameBoard.setOnKeyPressed(e -> {
-        //System.out.println("Tecla presionada: " + e.getCode());
-        switch (e.getCode()) {
-            case UP:
-                if (lastDirection != KeyCode.DOWN) {
-                    direction = KeyCode.UP;
-                }
+        gameBoard.setOnKeyPressed(e -> {
+            System.out.println("Tecla presionada: " + e.getCode());
+            switch (e.getCode()) {
+                case W:
+                    if (lastDirection != KeyCode.S) {
+                        direction = KeyCode.W;
+                    }
+                    break;
+                case S:
+                    if (lastDirection != KeyCode.W) {
+                        direction = KeyCode.S;
+                    }
                 break;
-            case DOWN:
-                if (lastDirection != KeyCode.UP) {
-                    direction = KeyCode.DOWN;
-                }
-                break;
-            case LEFT:
-                if (lastDirection != KeyCode.RIGHT) {
-                    direction = KeyCode.LEFT;
-                }
-                break;
-            case RIGHT:
-                if (lastDirection != KeyCode.LEFT) {
-                    direction = KeyCode.RIGHT;
-                }
-                break;
+                case A:
+                    if (lastDirection != KeyCode.D) {
+                        direction = KeyCode.A;
+                    }
+                    break;
+                case D:
+                    if (lastDirection != KeyCode.A) {
+                        direction = KeyCode.D;
+                    }
+                    break;
         }
     });
          // Mover la cabeza de la serpiente en la dirección actual
         switch (direction) {
-            case UP:
+            case W:
                 snakeY--;
                 break;
-            case DOWN:
+            case S:
                 snakeY++;
                 break;
-            case LEFT:
+            case A:
                 snakeX--;
                 break;
-            case RIGHT:
+            case D:
                 snakeX++;
                 break;
         }
@@ -161,7 +175,9 @@ public class GameBoardController {
         }
         if (snakeX == fruitX && snakeY == fruitY) {
             hasEatenFruit = true;
-            generateFruit(); // Generar nueva fruta
+            playerPoints+=15;
+            updatePoints(playerPoints);
+            generateFruit();
         }
 
         if (!hasEatenFruit) {
@@ -194,10 +210,10 @@ public class GameBoardController {
     }
 
     // Métodos para controlar el movimiento de la serpiente
-    public void moveUp() { direction = KeyCode.UP; }
+   /* public void moveUp() { direction = KeyCode.UP; }
     public void moveDown() { direction = KeyCode.DOWN; }
     public void moveLeft() { direction = KeyCode.LEFT; }
-    public void moveRight() { direction = KeyCode.RIGHT; }
+    public void moveRight() { direction = KeyCode.RIGHT; }*/
 
     // Método para inicializar la fruta
     private void initFruit() {
