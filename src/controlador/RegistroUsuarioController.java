@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.io.IOException;
@@ -25,11 +20,6 @@ import utilidades.bbdd.Bd;
 import utilidades.bbdd.Gestor_conexion_POSTGRE;
 import modelo.gestorBBDD;
 
-/**
- * FXML Controller class
- *
- * @author minak
- */
 public class RegistroUsuarioController implements Initializable {
     @FXML
     private TextField UsrIntroducido;
@@ -102,7 +92,7 @@ public class RegistroUsuarioController implements Initializable {
             // Mostrar la nueva escena
             ventana.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Manejo básico de excepciones, puedes cambiarlo según tu necesidad
+            e.printStackTrace();
         }
     }
     /**

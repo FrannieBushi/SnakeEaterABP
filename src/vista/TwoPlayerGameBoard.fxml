@@ -18,7 +18,7 @@
       </ImageView>
       <ImageView fitHeight="590.0" fitWidth="948.0" layoutX="26.0" layoutY="87.0" pickOnBounds="true">
          <image>
-            <Image url="@../imagenes/pngtree-black-gray-abstract-texture-gradient-dark-background-image_760097.jpg" />
+            <Image url="@../imagenes/Metal-Gear-1987.jpg" />
          </image>
       </ImageView>
       <Label fx:id="GameOver" layoutX="314.0" layoutY="14.0" prefHeight="131.0" prefWidth="375.0" text="Game Over" textFill="#fc0000" visible="false">
@@ -73,12 +73,12 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="TimePlayed1" layoutX="14.0" layoutY="10.0" prefHeight="35.0" prefWidth="203.0" text="Puntuación J1: 0" textFill="#fcfcfc">
+      <Label fx:id="ScorePlayer1" layoutX="14.0" layoutY="10.0" prefHeight="35.0" prefWidth="203.0" text="Puntuación J1: 0" textFill="#fcfcfc">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="45.0" text="Puntuación J2: 0" textFill="WHITE">
+      <Label fx:id="ScorePlayer2" layoutX="14.0" layoutY="45.0" text="Puntuación J2: 0" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>

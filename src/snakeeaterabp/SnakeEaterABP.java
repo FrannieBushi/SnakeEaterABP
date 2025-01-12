@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package snakeeaterabp;
 
 import javafx.application.Application;
@@ -16,17 +11,13 @@ import java.io.File;
 import javafx.scene.media.*; 
 import javafx.scene.media.MediaPlayer;
 
-/**
- *
- * @author minak
- */
 public class SnakeEaterABP extends Application {
     
-   /* static String musicFile = "src/sonido/musicaMenu.wav";
+    static String musicFile = "src/sonido/musicaMenu.wav";
     static Media sound = new Media(new File(musicFile).toURI().toString());
-    static MediaPlayer mediaPlayer = new MediaPlayer(sound);*/
+    static MediaPlayer mediaPlayer = new MediaPlayer(sound);
     
-    /*public static void muteMenuMusic(){
+    public static void muteMenuMusic(){
         
         if (mediaPlayer.isMute()) {
                 
@@ -36,11 +27,11 @@ public class SnakeEaterABP extends Application {
                 
             mediaPlayer.setMute(true);
         }
-    }*/
+    }
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/vista/TwoPlayerGameBoard.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/vista/InicioSesion.fxml"));
         
         Scene scene = new Scene(root);
         
@@ -50,8 +41,8 @@ public class SnakeEaterABP extends Application {
         stage.setScene(scene);
         stage.show();
         
-        //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        //mediaPlayer.play();  
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();  
     }
 
     /**

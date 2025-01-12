@@ -8,18 +8,37 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import java.awt.Point;
+import java.io.IOException;
+import static java.lang.Math.random;
+import static java.lang.StrictMath.random;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Label;
+import modelo.gestorBBDD;
+import java.util.Random;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+
 
 public class GameBoardController {
-
+    
+    Random rnd = new Random();
+    String usuario;
+    int idPlay;
+    
     @FXML
     private GridPane gameBoard;
     private Label   GameOver;
     
     @FXML
     private Label TimePlayed;
+    
+    @FXML
+    private Label IdPartida;
     
     @FXML
     private Label scoreLabel;
@@ -49,6 +68,10 @@ public class GameBoardController {
     
     private List<Point> snakeBody = new ArrayList<>();
     
+    public void setUsuario(String user){
+        usuario=user;
+    }
+    
     public void startTimer() {
         timeline.play();
     }
@@ -59,6 +82,24 @@ public class GameBoardController {
         TimePlayed.setText(String.format("%02d:%02d", minutes, remainingSeconds));
     }
     
+    private void generarMostrarID() {
+        idPlay = generarID();
+        IdPartida.setText("ID PARTIDA: " + idPlay);
+    }
+    
+    public int generarID() {
+        // Generar y devolver una ID aleatoria de 4 dígitos
+        int idGenerated;
+        do{
+            idGenerated = rnd.nextInt(9000) + 1000;
+            
+        }while(!gestorBBDD.comprobarIdPartida(idGenerated));
+        
+        return idGenerated;
+        
+    }
+
+    
     private void updatePoints(int playerPoints) {
         scoreLabel.setText("Puntuación: "+playerPoints);
     }
@@ -68,6 +109,7 @@ public class GameBoardController {
         initBoard();
         initSnake();
         initFruit();
+        generarMostrarID();
     
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             seconds++;
@@ -77,15 +119,14 @@ public class GameBoardController {
         timeline.setCycleCount(Timeline.INDEFINITE); // Hacer que el temporizador se ejecute indefinidamente
         startTimer(); // Iniciar el temporizador automáticamente al inicializar el controlador
 
-    // Configurar el bucle de juego para actualizar la posición de la serpiente periódicamente
-    gameLoop = new Timeline(new KeyFrame(Duration.millis(275), e -> moveSnake()));
-    gameLoop.setCycleCount(Timeline.INDEFINITE);
-    gameLoop.play();
+        // Configurar el bucle de juego para actualizar la posición de la serpiente periódicamente
+        gameLoop = new Timeline(new KeyFrame(Duration.millis(275), e -> moveSnake()));
+        gameLoop.setCycleCount(Timeline.INDEFINITE);
+        gameLoop.play();
 
-    // Asegurar que el foco esté en el GridPane para que pueda detectar las teclas presionadas
-    gameBoard.requestFocus();
-    gameBoard.setFocusTraversable(true);
-    //System.out.println("Foco del GridPane: " + gameBoard.isFocused());
+        // Asegurar que el foco esté en el GridPane para que pueda detectar las teclas presionadas
+        gameBoard.requestFocus();
+        gameBoard.setFocusTraversable(true);
 }
 
     private void initBoard() {
@@ -98,7 +139,7 @@ public class GameBoardController {
             }
         }
         for (Point point : snakeBody) {
-            //boardCells[point.y][point.x].setFill(javafx.scene.paint.Color.GREEN); // Dibujar el cuerpo de la serpiente
+
         }
     }
 
@@ -117,7 +158,6 @@ public class GameBoardController {
         
         // Vincular las teclas de flecha a los métodos de cambio de dirección
         gameBoard.setOnKeyPressed(e -> {
-            System.out.println("Tecla presionada: " + e.getCode());
             switch (e.getCode()) {
                 case W:
                     if (lastDirection != KeyCode.S) {
@@ -198,22 +238,37 @@ public class GameBoardController {
         for (Point point : snakeBody) {
             boardCells[point.y][point.x].setFill(javafx.scene.paint.Color.GREEN);
         }
-        // Incrementar la longitud de la serpiente
-        //snakeLength++;
     }
 
     private void gameOver() {
         // Detener el bucle de juego
         gameLoop.stop();
-        System.out.println("Game Over");
-        //GameOver.setVisible(true);
-    }
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/GameOver.fxml"));
+            Parent root = loader.load();
+            
+            GameOverController GameOverController = loader.getController();
+            GameOverController.setNombreJugadorUno(usuario);
+            GameOverController.setPuntuacion(playerPoints);
+            GameOverController.setIdPartida(idPlay);
+            
+            // Crear una nueva escena
+            Scene nuevaEscena = new Scene(root);
+   
+            // Obtener la ventana actual (escenario)
+            Stage ventana = (Stage) gameBoard.getScene().getWindow(); 
 
-    // Métodos para controlar el movimiento de la serpiente
-   /* public void moveUp() { direction = KeyCode.UP; }
-    public void moveDown() { direction = KeyCode.DOWN; }
-    public void moveLeft() { direction = KeyCode.LEFT; }
-    public void moveRight() { direction = KeyCode.RIGHT; }*/
+            // Establecer la nueva escena en la ventana
+            ventana.setScene(nuevaEscena);
+            ventana.show();
+
+            // Mostrar la nueva escena
+            ventana.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Método para inicializar la fruta
     private void initFruit() {
@@ -223,8 +278,10 @@ public class GameBoardController {
 
     // Método para generar una nueva fruta en una posición aleatoria
     private void generateFruit() {
-        fruitX = (int) (Math.random() * BOARDWIDTH);
-        fruitY = (int) (Math.random() * BOARDHEIGHT);
+        do {
+            fruitX = (int) (Math.random() * BOARDWIDTH);
+            fruitY = (int) (Math.random() * BOARDHEIGHT);
+        } while (snakeBody.stream().anyMatch(p -> p.x == fruitX && p.y == fruitY));
     }
 }
 

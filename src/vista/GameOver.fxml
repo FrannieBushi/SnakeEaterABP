@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="controlador.GameOverController">
+   <children>
+      <ImageView fitHeight="700.0" fitWidth="1000.0" pickOnBounds="true">
+         <image>
+            <Image url="@../imagenes/game-over-pixel-art-design-isolated-on-background-pixel-art-for-game-design-vector.jpg" />
+         </image>
+      </ImageView>
+      <TextArea fx:id="ComentarioPartida" layoutX="155.0" layoutY="561.0" prefHeight="62.0" prefWidth="701.0" />
+      <Button fx:id="EnviarComentario" layoutX="862.0" layoutY="569.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="124.0" text="Enviar comentario" />
+      <Button fx:id="Salir" layoutX="23.0" layoutY="569.0" mnemonicParsing="false" onAction="#btnSalir" prefHeight="46.0" prefWidth="124.0" text="Salir" />
+      <Label fx:id="IdPartida" layoutX="20.0" layoutY="27.0" text="ID PARTIDA:" textFill="RED">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="PuntuacionJ1" layoutX="20.0" layoutY="62.0" text="PUNTUACION J1:" textFill="RED">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="PuntuacionJ2" layoutX="20.0" layoutY="97.0" text="PUNTUACION J2:" textFill="RED" visible="false">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -8,9 +8,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import java.awt.Point;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class TwoPlayerGameBoardController {
 
@@ -22,38 +27,37 @@ public class TwoPlayerGameBoardController {
     private Label TimePlayed;
     
     @FXML
-    private Label scoreLabel;
+    private Label ScorePlayer1;
+    @FXML
+    private Label ScorePlayer2;
     
     private Timeline timeline;
     private int seconds = 0;
     
-    private int playerPoints = 0;
+    private int playerPointsJ1 = 0;
+    private int playerPointsJ2 = 0;
 
     private final int BOARDWIDTH = 20; // Ancho del tablero en celdas
     private final int BOARDHEIGHT = 15; // Altura del tablero en celdas
 
     private Rectangle[][] boardCells; // Matriz para almacenar las celdas del tablero
     
-    //
-    //
-    //J1 J1 J1 J1 J1 J1 J1 J1 J1 J1 J1 J1 J1 J1 J1 J1 J1 J1 J1 J1
+    //J1
     private int snakeLength = 1; // Longitud inicial de la serpiente
     private int snakeX = 5; // Posición X de la cabeza de la serpiente
     private int snakeY = 5; // Posición Y de la cabeza de la serpiente
     private KeyCode direction = KeyCode.D; // Dirección inicial de movimiento de la serpiente
     private KeyCode lastDirection = KeyCode.D; // Dirección anterior de la serpiente
     private List<Point> snakeBody = new ArrayList<>();
-    //
-    //
-    //J2 J2 J2 J2 J2 J2 J2 J2 J2 J2 J2 J2 J2 J2 J2 J2 J2 J2 J2 J2
+
+    //J2
     private int snakeTwoLength = 1; // Longitud inicial de la serpiente
     private int snakeTwoX = 12; // Posición X de la cabeza de la serpiente
     private int snakeTwoY = 7; // Posición Y de la cabeza de la serpiente
     private KeyCode directionSn2 = KeyCode.LEFT; // Dirección inicial de movimiento de la serpiente
     private KeyCode lastDirectionSn2 = KeyCode.LEFT; // Dirección anterior de la serpiente
     private List<Point> snakeBodyTwo = new ArrayList<>();
-    //
-    //
+
     private int fruitX;
     private int fruitY;
     private boolean hasEatenFruitJ1;
@@ -73,8 +77,12 @@ public class TwoPlayerGameBoardController {
         TimePlayed.setText(String.format("%02d:%02d", minutes, remainingSeconds));
     }
     
-    private void updatePoints(int playerPoints) {
-        //scoreLabel.setText("Puntuación: "+playerPoints);
+    private void updatePointsJ1(int playerPoints) {
+        ScorePlayer1.setText("Puntuación J1: " + playerPoints);
+    }
+
+    private void updatePointsJ2(int playerPoints) {
+        ScorePlayer2.setText("Puntuación J2: " + playerPoints);
     }
     
     public void initialize() {
@@ -102,7 +110,6 @@ public class TwoPlayerGameBoardController {
     // Asegurar que el foco esté en el GridPane para que pueda detectar las teclas presionadas
     gameBoard.requestFocus();
     gameBoard.setFocusTraversable(true);
-    //System.out.println("Foco del GridPane: " + gameBoard.isFocused());
 }
 
     private void initBoard() {
@@ -115,7 +122,7 @@ public class TwoPlayerGameBoardController {
             }
         }
         for (Point point : snakeBody) {
-            //boardCells[point.y][point.x].setFill(javafx.scene.paint.Color.GREEN); // Dibujar el cuerpo de la serpiente
+
         }
     }
 
@@ -140,7 +147,6 @@ public class TwoPlayerGameBoardController {
         
         // Vincular las teclas de flecha a los métodos de cambio de dirección
         gameBoard.setOnKeyPressed(e -> {
-            System.out.println("Tecla presionada: " + e.getCode());
             switch (e.getCode()) {
                 case W:
                     if (lastDirection != KeyCode.S) {
@@ -225,6 +231,12 @@ public class TwoPlayerGameBoardController {
             gameOver();
             return;
         }
+        
+        if (snakeTwoX < 0 || snakeTwoX >= BOARDWIDTH || snakeTwoY < 0 || snakeTwoY >= BOARDHEIGHT) {
+            System.out.println("Fuera de tablero");
+            gameOver();
+            return;
+        }
 
         // Actualizar la posición de la cabeza de la serpiente en el tablero
         boardCells[prevY][prevX].setFill(javafx.scene.paint.Color.TRANSPARENT); // Limpiar la celda anterior
@@ -248,15 +260,15 @@ public class TwoPlayerGameBoardController {
         
         if (snakeX == fruitX && snakeY == fruitY) {
             hasEatenFruitJ1 = true;
-            playerPoints+=15;
-            updatePoints(playerPoints);
+            playerPointsJ1 += 15; // Aumentar puntos del jugador 1
+            updatePointsJ1(playerPointsJ1); // Actualizar la etiqueta de puntuación del jugador 1
             generateFruit();
         }
         
         if (snakeTwoX == fruitX && snakeTwoY == fruitY) {
             hasEatenFruitJ2 = true;
-            playerPoints+=15;
-            updatePoints(playerPoints);
+            playerPointsJ2 += 15; // Aumentar puntos del jugador 1
+            updatePointsJ2(playerPointsJ2); // Actualizar la etiqueta de puntuación del jugador 1
             generateFruit();
         }
 
@@ -285,6 +297,19 @@ public class TwoPlayerGameBoardController {
         if (hasEatenFruitJ2) {
             snakeTwoLength++;
         }
+         
+        if (snakeBodyTwo.stream().anyMatch(p -> p.x == snakeX && p.y == snakeY)) {
+            System.out.println("Colisión de la serpiente 1 con la serpiente 2");
+            gameOver();
+            return;
+        }
+        
+        if (snakeBody.stream().anyMatch(p -> p.x == snakeTwoX && p.y == snakeTwoY)) {
+            System.out.println("Colisión de la serpiente 2 con la serpiente 1");
+            gameOver();
+            return;
+        }
+        
         // Actualizar visualmente el cuerpo de la serpiente en el tablero
         for (Point point : snakeBody) {
             boardCells[point.y][point.x].setFill(javafx.scene.paint.Color.GREEN);
@@ -293,16 +318,32 @@ public class TwoPlayerGameBoardController {
         for (Point point : snakeBodyTwo) {
             boardCells[point.y][point.x].setFill(javafx.scene.paint.Color.BLUE);
         }
-        // Incrementar la longitud de la serpiente
-        //snakeLength++;
     }
     
     private void gameOver() {
         // Detener el bucle de juego
         gameLoop.stop();
-        System.out.println("Game Over");
-        //GameOver.setVisible(true);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/GameOver.fxml"));
+            Parent root = loader.load();
+    
+            // Crear una nueva escena
+            Scene nuevaEscena = new Scene(root);
+   
+            // Obtener la ventana actual (escenario)
+            Stage ventana = (Stage) gameBoard.getScene().getWindow(); 
+
+            // Establecer la nueva escena en la ventana
+            ventana.setScene(nuevaEscena);
+            ventana.show();
+
+            // Mostrar la nueva escena
+            ventana.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+    
     
     // Método para inicializar la fruta
     private void initFruit() {
@@ -312,8 +353,10 @@ public class TwoPlayerGameBoardController {
 
     // Método para generar una nueva fruta en una posición aleatoria
     private void generateFruit() {
-        fruitX = (int) (Math.random() * BOARDWIDTH);
-        fruitY = (int) (Math.random() * BOARDHEIGHT);
+        do {
+            fruitX = (int) (Math.random() * BOARDWIDTH);
+            fruitY = (int) (Math.random() * BOARDHEIGHT);
+        } while (snakeBody.stream().anyMatch(p -> p.x == fruitX && p.y == fruitY));
     }
 }
 

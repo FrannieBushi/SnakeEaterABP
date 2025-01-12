@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.io.IOException;
@@ -17,11 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author Usuario
- */
 public class RegistroPartidasController implements Initializable {
     
     private void volverMenuInicio(ActionEvent event){
@@ -41,7 +31,7 @@ public class RegistroPartidasController implements Initializable {
             // Mostrar la nueva escena
             ventana.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Manejo básico de excepciones, puedes cambiarlo según tu necesidad
+            e.printStackTrace();
         }
     }
     /**

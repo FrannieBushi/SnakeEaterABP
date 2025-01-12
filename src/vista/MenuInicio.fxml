@@ -20,8 +20,28 @@
          </font>
       </Label>
       <Button fx:id="btnUnJugador" layoutX="498.0" layoutY="135.0" mnemonicParsing="false" onAction="#unJugador" prefHeight="80.0" prefWidth="488.0" text="Un jugador" />
-      <Button layoutX="498.0" layoutY="222.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="488.0" text="Dos jugadores" />
+      <Button layoutX="498.0" layoutY="222.0" mnemonicParsing="false" onAction="#dosJugadores" prefHeight="80.0" prefWidth="488.0" text="Dos jugadores" />
       <Button fx:id="btnRegistroPartidas" layoutX="498.0" layoutY="310.0" mnemonicParsing="false" onAction="#registroPartidas" prefHeight="80.0" prefWidth="488.0" text="Registro de partidas" />
       <Button id="cerrarSesion" layoutX="498.0" layoutY="397.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="80.0" prefWidth="488.0" text="Cerrar sesión" />
+      <Label layoutX="55.0" layoutY="110.0" text="Nivel de jugador:" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="99.0" layoutY="137.0" text="Novel" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="56.0" text="Nombre de jugador:" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="NombreJugador" layoutX="85.0" layoutY="83.0" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

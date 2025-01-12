@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import java.security.MessageDigest;
@@ -11,11 +6,13 @@ import javafx.fxml.FXML;
 import utilidades.bbdd.Bd;
 import utilidades.bbdd.Gestor_conexion_POSTGRE;
 
-/**
- *
- * @author Usuario
- */
 public class gestorBBDD {
+    
+    private String nombre;
+    public gestorBBDD(String nombre){
+        this.nombre = nombre;
+        
+    }
     
     public static String encriptarPsw(String contrasena){
         try{
@@ -65,6 +62,23 @@ public class gestorBBDD {
             for(int i=0; i < vec.length; i++){
                 for(int j=0; j<vec[0].length; j++ ){
                     if(vec[i][j].equals(usuario))
+                        return false;  
+                }
+            }
+        }
+        
+        return true;
+    }
+
+     public static boolean comprobarIdPartida(int idPartida){
+        String [][] vec;
+        Gestor_conexion_POSTGRE gestor = new Gestor_conexion_POSTGRE("snakeeaterabp", true);
+        vec = Bd.consultaSelect(gestor, "select partida_id from partidas");
+        
+        if(vec!=null){
+            for(int i=0; i < vec.length; i++){
+                for(int j=0; j<vec[0].length; j++ ){
+                    if(vec[i][j].equals(idPartida))
                         return false;  
                 }
             }

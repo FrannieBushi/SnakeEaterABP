@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.io.IOException;
@@ -25,14 +20,14 @@ import java.util.function.UnaryOperator;
 import modelo.gestorBBDD;
 import snakeeaterabp.SnakeEaterABP;
 
-/**
- *
- * @author minak
- */
 public class InicioSesionController implements Initializable {
    
     @FXML
-    private TextField UsrIntroducido;
+        public void toggleMute() {
+        SnakeEaterABP.muteMenuMusic();
+    }
+    @FXML
+    public TextField UsrIntroducido;
     
     @FXML
     private PasswordField PswIntroducido;
@@ -68,10 +63,14 @@ public class InicioSesionController implements Initializable {
         
         if(gestorBBDD.comprobarUsuario(usuario) == false){
             if(gestorBBDD.comprobarContrasena(usuario, contrasena)){
+                gestorBBDD jugadorUno = new gestorBBDD(usuario);
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/MenuInicio.fxml"));
                     Parent root = loader.load();
-
+                    
+                    MenuInicioController menuInicioController = loader.getController();
+                    // Pasar el nombre de usuario al segundo controlador
+                    menuInicioController.setNombreJugador(usuario);
                     // Crear una nueva escena
                     Scene nuevaEscena = new Scene(root);
 
@@ -85,7 +84,7 @@ public class InicioSesionController implements Initializable {
                     ventana.show();
                 } 
                 catch (IOException e) {
-                    e.printStackTrace(); // Manejo básico de excepciones, puedes cambiarlo según tu necesidad
+                    e.printStackTrace();
                 }
             }
             
@@ -127,7 +126,7 @@ public class InicioSesionController implements Initializable {
             // Mostrar la nueva escena
             ventana.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Manejo básico de excepciones, puedes cambiarlo según tu necesidad
+            e.printStackTrace();
         }
     }
     

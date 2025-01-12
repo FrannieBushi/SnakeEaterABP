@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.io.IOException;
@@ -15,14 +10,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import modelo.gestorBBDD;
 
-/**
- * FXML Controller class
- *
- * @author minak
- */
 public class MenuInicioController implements Initializable {
+    @FXML
+    private Label NombreJugador;
+    String usuario;
+    
+    public void setNombreJugador(String nombreUsuario) {
+        usuario = nombreUsuario;
+        NombreJugador.setText(nombreUsuario);
+    }
     
     @FXML
      private void cerrarSesion(ActionEvent event){
@@ -42,15 +42,18 @@ public class MenuInicioController implements Initializable {
             // Mostrar la nueva escena
             ventana.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Manejo básico de excepciones, puedes cambiarlo según tu necesidad
+            e.printStackTrace();
         }
     }
      
      @FXML
-     private void unJugador(ActionEvent event){
+    private void unJugador(ActionEvent event){
         try {
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/GameBoard.fxml"));
             Parent root = loader.load();
+            GameBoardController GameBoardController = loader.getController();
+            GameBoardController.setUsuario(usuario);
 
             // Crear una nueva escena
             Scene nuevaEscena = new Scene(root);
@@ -64,7 +67,32 @@ public class MenuInicioController implements Initializable {
             // Mostrar la nueva escena
             ventana.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Manejo básico de excepciones, puedes cambiarlo según tu necesidad
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void dosJugadores(ActionEvent event){
+        try {
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/TwoPlayerGameBoard.fxml"));
+            Parent root = loader.load();
+            //GameBoardController GameBoardController = loader.getController();
+            //GameBoardController.setUsuario(usuario);
+
+            // Crear una nueva escena
+            Scene nuevaEscena = new Scene(root);
+
+            // Obtener la ventana actual (escenario)
+            Stage ventana = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Establecer la nueva escena en la ventana
+            ventana.setScene(nuevaEscena);
+
+            // Mostrar la nueva escena
+            ventana.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
      
@@ -86,7 +114,7 @@ public class MenuInicioController implements Initializable {
             // Mostrar la nueva escena
             ventana.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Manejo básico de excepciones, puedes cambiarlo según tu necesidad
+            e.printStackTrace();
         }
     }
     
@@ -96,6 +124,7 @@ public class MenuInicioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
     }    
     
 }
